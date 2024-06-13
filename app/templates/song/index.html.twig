@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.song_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.song_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'song.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.createdAt'|trans, 'song.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updatedAt'|trans, 'song.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'song.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'song.category') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.comment'|trans, 'song.comment') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for song in pagination.items %}
+                <tr>
+                    <td>{{ song.id }}</td>
+                    <td>{{ song.createdAt|format_date('long') }}</td>
+                    <td>{{ song.updatedAt|format_date('long') }}</td>
+                    <td>{{ song.title }}</td>
+                    <td>{{ song.category.title }}</td>
+                    <td>{{ song.comment }}</td>
+                    <td>
+                        <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">
+                            {{ 'action.show'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

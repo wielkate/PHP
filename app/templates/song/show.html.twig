@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.song_view'|trans({'%id%': song.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.song_view'|trans({'%id%': song.id|default('')}) }}</h1>
+    {% if song is defined and song|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.id'|trans }}</dt>
+            <dd>{{ song.id }}</dd>
+            <dt>{{ 'label.createdAt'|trans }}</dt>
+            <dd>{{ song.createdAt|format_date('long') }}</dd>
+            <dt>{{ 'label.updatedAt'|trans }}</dt>
+            <dd>{{ song.updatedAt|format_date('long') }}</dd>
+            <dt>{{ 'label.title'|trans }}</dt>
+            <dd>{{  song.title }}</dd>
+            <dt>{{ 'label.category'|trans }}</dt>
+            <dd>{{  song.category.title }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('song_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
