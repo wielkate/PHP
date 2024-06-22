@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Repository\SongRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
-#[ORM\Table(name: 'songs')]
 class Song
 {
     #[ORM\Id]
@@ -26,15 +27,23 @@ class Song
     #[ORM\Column]
     private ?DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'songs', fetch: 'EXTRA_LAZY')]
+    private Collection $tags;
+
+    #[ORM\ManyToOne( fetch: 'EXTRA_LAZY', inversedBy: 'songs')]
+    private ?Category $category = null;
+
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?DateTimeInterface $duration = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
-    
-    #[ORM\ManyToOne(targetEntity: Category::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +85,41 @@ class Song
         return $this;
     }
 
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTag(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tags): static
+    {
+        if (!$this->tags->contains($tags)) {
+            $this->tags->add($tags);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tags): static
+    {
+        $this->tags->removeElement($tags);
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 
     public function getDuration(): ?DateTimeInterface
     {
@@ -109,17 +153,5 @@ class Song
     public function getFormattedCreatedAt(): string
     {
         return $this->createdAt->format('Y\m\d');
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
     }
 }

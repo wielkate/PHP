@@ -18,6 +18,8 @@
             <dd>{{  song.title }}</dd>
             <dt>{{ 'label.category'|trans }}</dt>
             <dd>{{  song.category.title }}</dd>
+            <dt>{{ 'label.comment'|trans }}</dt>
+            <dd>{{  song.comment }}</dd>
         </dl>
         <p>
             <a href="{{ url('song_index') }}" title="{{ 'action.back_to_list'|trans }}">
@@ -26,7 +28,7 @@
         </p>
     {% else %}
         <p>
-            {{ 'message.record_not_found'|trans }}
+            {{ 'message.song_not_found'|trans }}
         </p>
     {% endif %}
 {% endblock %}

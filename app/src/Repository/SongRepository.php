@@ -53,6 +53,11 @@ class SongRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial song.{id, comment, createdAt, updatedAt, title, duration, category}',
+                'partial category.{id, title}'
+            )
+            ->leftJoin('song.category', 'category')
             ->orderBy('song.updatedAt', 'DESC');
     }
 

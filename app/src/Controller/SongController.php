@@ -9,6 +9,7 @@ use App\Entity\Song;
 use App\Repository\SongRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -19,19 +20,28 @@ use Symfony\Component\Routing\Attribute\Route;
 class SongController extends AbstractController
 {
     /**
-     * Index action.
+     * Constructor.
      *
      * @param SongRepository     $songRepository Song repository
      * @param PaginatorInterface $paginator      Paginator
+     */
+    public function __construct(private readonly SongRepository $songRepository, private readonly PaginatorInterface $paginator)
+    {
+    }
+
+    /**
+     * Index action.
+     *
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
     #[Route(name: 'song_index', methods: 'GET')]
-    public function index(SongRepository $songRepository, PaginatorInterface $paginator, #[MapQueryParameter] int $page = 1): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $songRepository->queryAll(),
-            $page,
+        $pagination = $this->paginator->paginate(
+            $this->songRepository->queryAll(),
+            $request->query->getInt('page', 1),
             SongRepository::PAGINATOR_ITEMS_PER_PAGE
         );
 
@@ -41,7 +51,7 @@ class SongController extends AbstractController
     /**
      * Show action.
      *
-     * @param Song $song Song entity
+     * @param Song $song Song
      *
      * @return Response HTTP response
      */
@@ -49,13 +59,10 @@ class SongController extends AbstractController
         '/{id}',
         name: 'song_show',
         requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET',
+        methods: 'GET'
     )]
     public function show(Song $song): Response
     {
-        return $this->render(
-            'song/show.html.twig',
-            ['song' => $song]
-        );
+        return $this->render('song/show.html.twig', ['song' => $song]);
     }
 }
