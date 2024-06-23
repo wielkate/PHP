@@ -7,7 +7,9 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
-use DateTimeImmutable;
+use App\Repository\SongRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -26,15 +28,21 @@ class CategoryService implements CategoryServiceInterface
      * @constant int
      */
     private const PAGINATOR_ITEMS_PER_PAGE = 10;
+    /**
+     * Song repository.
+     */
+    private SongRepository $songRepository;
 
     /**
      * Constructor.
      *
-     * @param CategoryRepository     $categoryRepository Category repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param CategoryRepository $categoryRepository Category repository
+     * @param SongRepository $_songRepository
+     * @param PaginatorInterface $paginator Paginator
      */
-    public function __construct(private readonly CategoryRepository $categoryRepository, private readonly PaginatorInterface $paginator)
+    public function __construct(private readonly CategoryRepository $categoryRepository, private readonly SongRepository $_songRepository, private readonly PaginatorInterface $paginator)
     {
+        $this->songRepository = $_songRepository;
     }
 
     /**
@@ -61,5 +69,23 @@ class CategoryService implements CategoryServiceInterface
     public function save(Category $category): void
     {
         $this->categoryRepository->save($category);
+    }
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Category $category Category entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Category $category): bool
+    {
+        try {
+            $result = $this->songRepository->countByCategory($category);
+
+            return !($result > 0);
+        } catch (NoResultException|NonUniqueResultException) {
+            return false;
+        }
     }
 }
