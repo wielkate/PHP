@@ -6,12 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\Song;
-use App\Repository\SongRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Form\Type\SongType;
+use App\Service\SongServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class SongController.
@@ -22,47 +25,152 @@ class SongController extends AbstractController
     /**
      * Constructor.
      *
-     * @param SongRepository     $songRepository Song repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param SongServiceInterface $songService Song service
+     * @param TranslatorInterface  $translator  Translator
      */
-    public function __construct(private readonly SongRepository $songRepository, private readonly PaginatorInterface $paginator)
+    public function __construct(private readonly SongServiceInterface $songService, private readonly TranslatorInterface $translator)
     {
     }
 
     /**
      * Index action.
      *
-     * @param Request $request HTTP Request
+     * @param int $page Page number
      *
      * @return Response HTTP response
      */
     #[Route(name: 'song_index', methods: 'GET')]
-    public function index(Request $request): Response
+    public function index(#[MapQueryParameter] int $page = 1): Response
     {
-        $pagination = $this->paginator->paginate(
-            $this->songRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            SongRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $pagination = $this->songService->getPaginatedList($page);
 
         return $this->render('song/index.html.twig', ['pagination' => $pagination]);
     }
 
+/**
+ * Show action.
+ *
+ * @param Song $song Song entity
+ *
+ * @return Response HTTP response
+ */
+#[Route('/{id}', name: 'song_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    public function show(Song $song): Response
+{
+    return $this->render('song/show.html.twig', ['song' => $song]);
+}
+
     /**
-     * Show action.
+     * Create action.
      *
-     * @param Song $song Song
+     * @param Request $request HTTP request
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/{id}',
-        name: 'song_show',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET'
-    )]
-    public function show(Song $song): Response
-    {
-        return $this->render('song/show.html.twig', ['song' => $song]);
+    #[Route('/create', name: 'song_create', methods: 'GET|POST', )]
+    public function create(Request $request): Response
+{
+    $song = new Song();
+    $form = $this->createForm(
+        SongType::class,
+        $song,
+        ['action' => $this->generateUrl('song_create')]
+    );
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->songService->save($song);
+
+        $this->addFlash(
+            'success',
+            $this->translator->trans('message.created_successfully')
+        );
+
+        return $this->redirectToRoute('song_index');
     }
+
+    return $this->render('song/create.html.twig',  ['form' => $form->createView()]);
+}
+
+    /**
+     * Edit action.
+     *
+     * @param Request $request HTTP request
+     * @param Song    $song    Song entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/edit', name: 'song_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    public function edit(Request $request, Song $song): Response
+{
+    $form = $this->createForm(
+        SongType::class,
+        $song,
+        [
+            'method' => 'PUT',
+            'action' => $this->generateUrl('song_edit', ['id' => $song->getId()]),
+        ]
+    );
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->songService->save($song);
+
+        $this->addFlash(
+            'success',
+            $this->translator->trans('message.edited_successfully')
+        );
+
+        return $this->redirectToRoute('song_index');
+    }
+
+    return $this->render(
+        'song/edit.html.twig',
+        [
+            'form' => $form->createView(),
+            'song' => $song,
+        ]
+    );
+}
+
+    /**
+     * Delete action.
+     *
+     * @param Request $request HTTP request
+     * @param Song    $song    Song entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/delete', name: 'song_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    public function delete(Request $request, Song $song): Response
+{
+    $form = $this->createForm(
+        FormType::class,
+        $song,
+        [
+            'method' => 'DELETE',
+            'action' => $this->generateUrl('song_delete', ['id' => $song->getId()]),
+        ]
+    );
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->songService->delete($song);
+
+        $this->addFlash(
+            'success',
+            $this->translator->trans('message.deleted_successfully')
+        );
+
+        return $this->redirectToRoute('song_index');
+    }
+
+    return $this->render(
+        'song/delete.html.twig',
+        [
+            'form' => $form->createView(),
+            'song' => $song,
+        ]
+    );
+}
 }

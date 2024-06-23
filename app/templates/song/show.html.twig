@@ -19,6 +19,7 @@
             <dt>{{ 'label.category'|trans }}</dt>
             <dd>{{  song.category.title }}</dd>
             <dt>{{ 'label.comment'|trans }}</dt>
+            <dd>{{ task.comment|markdown_to_html }}</dd>
             <dd>{{  song.comment }}</dd>
         </dl>
         <p>

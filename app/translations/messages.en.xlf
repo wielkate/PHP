@@ -58,6 +58,34 @@
                 <source>title.song_view</source>
                 <target>Song view #%id%</target>
             </trans-unit>
+            <trans-unit id="title.song_create">
+                <source>title.song_create</source>
+                <target>Create Song</target>
+            </trans-unit>
+            <trans-unit id="title.song_edit">
+                <source>title.song_edit</source>
+                <target>Edit Song</target>
+            </trans-unit>
+            <trans-unit id="title.song_delete">
+                <source>title.song_delete</source>
+                <target>Delete Song</target>
+            </trans-unit>
+            <trans-unit id="title.category_create">
+                <source>title.category_create</source>
+                <target>Create Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>Category list</target>
+            </trans-unit>
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Edit Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_delete">
+                <source>title.category_delete</source>
+                <target>Delete Category</target>
+            </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
                 <target>Back to list</target>
@@ -81,6 +109,10 @@
             <trans-unit id="action.show">
                 <source>action.show</source>
                 <target>Show</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
             </trans-unit>
         </body>
     </file>

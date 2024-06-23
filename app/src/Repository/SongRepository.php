@@ -5,8 +5,14 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Song;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +25,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Song[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  *
  * @extends ServiceEntityRepository<Song>
- *
- * @psalm-suppress LessSpecificImplementedReturnType
  */
 class SongRepository extends ServiceEntityRepository
 {
-    /**
-     * Items per page.
-     *
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them in configuration files.
-     * See https://symfony.com/doc/current/best_practices.html#configuration
-     *
-     * @constant int
-     */
-    public const PAGINATOR_ITEMS_PER_PAGE = 10;
-
     /**
      * Constructor.
      *
@@ -54,11 +47,63 @@ class SongRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->select(
-                'partial song.{id, comment, createdAt, updatedAt, title, duration, category}',
+                'partial song.{id, createdAt, updatedAt, title}',
                 'partial category.{id, title}'
             )
-            ->leftJoin('song.category', 'category')
+            ->join('song.category', 'category')
             ->orderBy('song.updatedAt', 'DESC');
+    }
+
+    /**
+     * Count songs by category.
+     *
+     * @param Category $category Category
+     *
+     * @return int Number of songs in category
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByCategory(Category $category): int
+    {
+        $qb = $this->getOrCreateQueryBuilder();
+
+        return $qb->select($qb->expr()->countDistinct('song.id'))
+            ->where('song.category = :category')
+            ->setParameter(':category', $category)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Song $song Song entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function save(Song $song): void
+    {
+        assert($this->_em instanceof EntityManager);
+        $this->_em->persist($song);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Song $song Song entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    public function delete(Song $song): void
+    {
+        assert($this->_em instanceof EntityManager);
+        $this->_em->remove($song);
+        $this->_em->flush();
     }
 
     /**
@@ -72,4 +117,5 @@ class SongRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('song');
     }
+
 }
