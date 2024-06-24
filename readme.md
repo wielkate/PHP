@@ -75,11 +75,11 @@ DATABASE_URL=mysql://symfony:symfony@mysql:3306/symfony?serverVersion=5.7
 
 ## Useful commands
 
-* `docker compose up -d` - start containers
-* `docker compose down` - stop containers
-* `docker compose exec php bash` - enter into PHP container
-* `docker compose exec mysql bash` - enter into MySQL container
-* `docker compose exec apache bash` - enter into Apache2 container
+* `docker-compose up -d` - start containers
+* `docker-compose down` - stop containers
+* `docker-compose exec php bash` - enter into PHP container
+* `docker-compose exec mysql bash` - enter into MySQL container
+* `docker-compose exec apache bash` - enter into Apache2 container
 
 ## Troubleshooting
 

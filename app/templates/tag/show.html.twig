@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h1>Tag</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tag.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ tag.title }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ tag.createdAt ? tag.createdAt|format_date('long') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ tag.updatedAt ? tag.updatedAt|format_date('long') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ tag.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="{{ url('app_tag_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </p>
+    <div class="btn btn-light">
+        <a href="{{ url('app_tag_edit', {id: tag.id}) }}" title="{{ 'action.edit'|trans }}">
+            {{ 'action.edit'|trans }}</a>
+    </div>
+    <div class="btn btn-light">
+        <a href="{{ url('app_tag_delete', {id: tag.id}) }}" title="{{ 'action.delete'|trans }}">
+            {{ 'action.delete'|trans }}</a>
+    </div>
+{% endblock %}

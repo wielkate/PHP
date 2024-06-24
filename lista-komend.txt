@@ -1,0 +1,5 @@
+Sprawdzenie kodu uruchamiamy poleceniem:
+vendor/bin/phpcs --standard=Symfony src/
+
+Narzędzie do automatycznej poprawy kodu phpcbf
+vendor/bin/phpcbf --standard=Symfony src/ --ignore=Kernel.php

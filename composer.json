@@ -1,0 +1,9 @@
+{
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.57"
+    },
+    "require": {
+        "twig/intl-extra": "^3.10",
+        "stof/doctrine-extensions-bundle": "^1.11"
+    }
+}

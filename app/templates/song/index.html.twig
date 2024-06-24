@@ -5,7 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.song_list'|trans }}</h1>
+    <div class="row">
+        <div class="col-md-10 mb-2 mb-md-0">
+            <h1>{{ 'title.song_list'|trans }}</h1>
+        </div>
+        <div class="col-md-2 text-end">
+            <a href="{{ path('song_create') }}" class="btn btn-primary">{{ 'action.new'|trans }}</a>
+        </div>
+    </div>
+
+
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -19,6 +28,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.createdAt'|trans, 'song.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updatedAt'|trans, 'song.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'song.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.duration'|trans, 'song.duration') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.comment'|trans, 'song.comment') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
@@ -28,10 +38,15 @@
             {% for song in pagination.items %}
                 <tr>
                     <td>{{ song.id }}</td>
-                    <td>{{ song.createdAt|format_date('long') }}</td>
-                    <td>{{ song.updatedAt|format_date('long') }}</td>
+                    <td>{{ song.createdAt|format_date('long')}}</td>
+                    <td>{{ song.updatedAt|format_date('long')}}</td>
                     <td>{{ song.title }}</td>
-                    <td>{{ song.category.title }}</td>
+                    <td>{{ song.duration|date("H:i:s")}}</td>
+                    <td>
+                        {% if song.category %}
+                            {{ song.category.title }}
+                        {% endif %}
+                    </td>
                     <td>{{ song.comment }}</td>
                     <td>
                         <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">
@@ -55,6 +70,7 @@
 
     {% else %}
         <p>
+            {{ dump(pagination.items) }}
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}

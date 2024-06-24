@@ -8,8 +8,6 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\SongRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -31,14 +29,14 @@ class CategoryService implements CategoryServiceInterface
     /**
      * Song repository.
      */
-    private SongRepository $songRepository;
+    private readonly SongRepository $songRepository;
 
     /**
      * Constructor.
      *
      * @param CategoryRepository $categoryRepository Category repository
-     * @param SongRepository $_songRepository
-     * @param PaginatorInterface $paginator Paginator
+     * @param SongRepository     $_songRepository    Song Repository
+     * @param PaginatorInterface $paginator          Paginator
      */
     public function __construct(private readonly CategoryRepository $categoryRepository, private readonly SongRepository $_songRepository, private readonly PaginatorInterface $paginator)
     {
@@ -68,7 +66,22 @@ class CategoryService implements CategoryServiceInterface
      */
     public function save(Category $category): void
     {
+        if (is_null($category->getId())) {
+            $category->setCreatedAt(new \DateTimeImmutable());
+        }
+        $category->setUpdatedAt(new \DateTimeImmutable());
+
         $this->categoryRepository->save($category);
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Category $category Category entity
+     */
+    public function delete(Category $category): void
+    {
+        $this->categoryRepository->delete($category);
     }
 
     /**
@@ -80,12 +93,20 @@ class CategoryService implements CategoryServiceInterface
      */
     public function canBeDeleted(Category $category): bool
     {
-        try {
-            $result = $this->songRepository->countByCategory($category);
+        $result = $this->songRepository->countByCategory($category);
 
-            return !($result > 0);
-        } catch (NoResultException|NonUniqueResultException) {
-            return false;
-        }
+        return $result <= 0;
+    }
+
+    /**
+     * Find on by Id.
+     *
+     * @param int $id Id
+     *
+     * @return Category|null Category Object
+     */
+    public function findOneById(int $id): ?Category
+    {
+        return $this->categoryRepository->find($id);
     }
 }

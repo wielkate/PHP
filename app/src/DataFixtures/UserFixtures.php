@@ -28,9 +28,9 @@ class UserFixtures extends AbstractBaseFixtures
      */
     protected function loadData(): void
     {
-        if (!$this->manager instanceof ObjectManager || !$this->faker instanceof Generator) {
-            return;
-        }
+        //        if (!$this->manager instanceof ObjectManager || !$this->faker instanceof Generator) {
+        //            return;
+        //        }
 
         $this->createMany(10, 'users', function (int $i) {
             $user = new User();
@@ -42,6 +42,7 @@ class UserFixtures extends AbstractBaseFixtures
                     'user1234'
                 )
             );
+            $this->manager->persist($user);
 
             return $user;
         });
@@ -56,6 +57,7 @@ class UserFixtures extends AbstractBaseFixtures
                     'admin1234'
                 )
             );
+            $this->manager->persist($user);
 
             return $user;
         });

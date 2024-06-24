@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-10 mb-2 mb-md-0">
-            <h1>{{ 'title.category_list'|trans }}</h1>
+        <div class="row">
+            <div class="col-md-10 mb-2 mb-md-0">
+                <h1>{{ 'title.category_list'|trans }}</h1>
+            </div>
+            <div class="col-md-2 text-end">
+                <a href="{{ path('category_new') }}" class="btn btn-primary">{{ 'action.new'|trans }}</a>
+            </div>
         </div>
-        <div class="col-md-2 text-end">
-            <a href="{{ path('category_create') }}" class="btn btn-primary">{{ 'action.create'|trans }}</a>
-        </div>
-    </div>
 
     {% if pagination is defined and pagination.items|length %}
 
@@ -26,6 +26,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'category.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updatedAt'|trans, 'category.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.createdAt'|trans, 'category.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.slug'|trans, 'category.slug') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -34,11 +35,12 @@
                 <tr>
                     <td>{{ item.id }}</td>
                     <td>{{ item.title }}</td>
-                    <td>{{ item.updatedAt ? item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ item.createdAt ? item.updatedAt|date('Y-m-d H:i:s') : ''  }}</td>
+                    <td>{{ item.updatedAt ? item.createdAt|format_date('long'): '' }}</td>
+                    <td>{{ item.createdAt ? item.updatedAt|format_date('long'): ''  }}</td>
+                    <td>{{ item.slug }}</td>
                     <td>
-                        <a href="{{ url('category_show', {id: item.id}) }}" title="{{ 'action.show'|trans }}">
-                            {{ 'action.show'|trans }}
+                        <a href="{{ url('category_show', {id: item.id}) }}" title="{{ 'action.view'|trans }}">
+                            {{ 'action.view'|trans }}
                         </a>
                         <a href="{{ url('category_edit', {id: item.id}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
@@ -63,8 +65,8 @@
         </p>
     {% endif %}
     <div class="btn btn-light">
-        <a href="{{ url('category_create') }}" title="{{ 'action.create'|trans }}">
-            {{ 'action.create'|trans }}</a>
+        <a href="{{ url('category_new') }}" title="{{ 'action.new'|trans }}">
+            {{ 'action.new'|trans }}</a>
     </div>
 {% endblock %}
 
@@ -107,5 +109,5 @@
 {#        </tbody>#}
 {#    </table>#}
 
-{#    <a href="{{ path('app_category_create') }}">Create new</a>#}
+{#    <a href="{{ path('app_category_new') }}">Create new</a>#}
 {#{% endblock %}#}

@@ -30,12 +30,18 @@ interface CategoryServiceInterface
     public function save(Category $category): void;
 
     /**
-     * Can Category be deleted?
+     * Delete entity.
      *
      * @param Category $category Category entity
-     *
-     * @return bool Result
      */
-    public function canBeDeleted(Category $category): bool;
+    public function delete(Category $category): void;
 
+    /**
+     * Find on by Id.
+     *
+     * @param int $id Id
+     *
+     * @return Category|null Category object
+     */
+    public function findOneById(int $id): ?Category;
 }

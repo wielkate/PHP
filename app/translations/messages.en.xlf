@@ -1,119 +1,223 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="label.actions">
-                <source>label.actions</source>
-                <target>Actions</target>
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+
+      <trans-unit id="label.actions">
+        <source>label.actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="label.id">
+        <source>label.id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="label.title">
+        <source>label.title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="label.slug">
+        <source>label.slug</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="label.created_at">
+        <source>label.createdAt</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="label.updated_at">
+        <source>label.updatedAt</source>
+        <target>Updated at</target>
+      </trans-unit>
+      <trans-unit id="label.duration">
+        <source>label.duration</source>
+        <target>Duration</target>
+      </trans-unit>
+      <trans-unit id="label.comment">
+        <source>label.comment</source>
+        <target>Comment</target>
+      </trans-unit>
+      <trans-unit id="label.category">
+        <source>label.category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="label.tags">
+        <source>label.tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="label.none">
+        <source>label.none</source>
+        <target>None</target>
+      </trans-unit>
+      <trans-unit id="message.empty_list">
+        <source>message.empty_list</source>
+        <target>List is empty.</target>
+      </trans-unit>
+      <trans-unit id="message.song_not_found">
+        <source>message.song_not_found</source>
+        <target>Song not found.</target>
+      </trans-unit>
+      <trans-unit id="title.song_list">
+        <source>title.song_list</source>
+        <target>Songs list</target>
+      </trans-unit>
+      <trans-unit id="title.song_view">
+        <source>title.song_view</source>
+        <target>Song view #%id%</target>
+      </trans-unit>
+       <trans-unit id="title.song_create">
+        <source>title.song_create</source>
+        <target>Song create</target>
+      </trans-unit>
+      <trans-unit id="title.category_list">
+        <source>title.category_list</source>
+        <target>Category list</target>
+      </trans-unit>
+      <trans-unit id="action.back_to_list">
+        <source>action.back_to_list</source>
+        <target>Back to list</target>
+      </trans-unit>
+      <trans-unit id="action.edit">
+        <source>action.edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="action.update">
+        <source>action.update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="action.create">
+        <source>action.create</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="action.show">
+        <source>action.show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="action.view">
+        <source>action.view</source>
+        <target>View</target>
+      </trans-unit>
+      <trans-unit id="message.created_successfully">
+              <source>message.created_successfully</source>
+              <target>created successfully</target>
+        </trans-unit>
+        <trans-unit id="message.edited_successfully">
+            <source>message.edited_successfully</source>
+            <target>edited successfully</target>
+        </trans-unit>
+
+        <trans-unit id="message.deleted_successfully">
+            <source>message.deleted_successfully</source>
+            <target>deleted successfully</target>
+        </trans-unit>
+         <trans-unit id="title.tag_edit">
+            <source>title.tag_edit</source>
+            <target>Tag edit #%id%</target>
+         </trans-unit>
+          <trans-unit id="title.tag_delete">
+            <source>title.tag_delete</source>
+            <target>Tag delete #%id%</target>
+          </trans-unit>
+        <trans-unit id="title.tag_list">
+            <source>title.tag_list</source>
+            <target>Tag list</target>
+        </trans-unit>
+        <trans-unit id="title.category_delete">
+            <source>title.category_delete</source>
+            <target>Category delete</target>
+        </trans-unit>
+        <trans-unit id="label.name">
+            <source>label.name</source>
+            <target>name</target>
+        </trans-unit>
+        <trans-unit id="title.song_delete">
+        <source>title.song_delete</source>
+        <target>Song delete</target>
+      </trans-unit>
+      <trans-unit id="title.tag_create">
+        <source>title.tag_create</source>
+        <target>Tag create</target>
+      </trans-unit>
+        <trans-unit id="label.action">
+            <source>label.action</source>
+            <target>action</target>
+        </trans-unit>
+        <trans-unit id="action_logout">
+            <source>action_logout</source>
+            <target>logout</target>
+        </trans-unit>
+
+        <trans-unit id="action_login">
+            <source>action_login</source>
+            <target>login</target>
+        </trans-unit>
+
+        <trans-unit id="action.new">
+            <source>action.new</source>
+            <target>New</target>
+        </trans-unit>
+              <trans-unit id="action.sign_in">
+                <source>action.sign_in</source>
+                <target>Sign in</target>
+              </trans-unit>
+
+              <trans-unit id="title.please_sign_in">
+                <source>title.please_sign_in</source>
+                <target>Please sign in</target>
+              </trans-unit>
+
+              <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+              </trans-unit>
+
+              <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+              </trans-unit>
+<trans-unit id="title.home">
+        <source>title.home</source>
+        <target>Home</target>
+      </trans-unit>
+
+      <trans-unit id="action.logout">
+              <source>action.logout</source>
+              <target>Logout</target>
             </trans-unit>
-            <trans-unit id="label.id">
-                <source>label.id</source>
-                <target>Id</target>
+
+            <trans-unit id="action.login">
+              <source>action.login</source>
+              <target>Login</target>
             </trans-unit>
-            <trans-unit id="label.title">
-                <source>label.title</source>
-                <target>Title</target>
-            </trans-unit>
-            <trans-unit id="label.createdAt">
-                <source>label.createdAt</source>
-                <target>Created at</target>
-            </trans-unit>
-            <trans-unit id="label.updatedAt">
-                <source>label.updatedAt</source>
-                <target>Updated at</target>
-            </trans-unit>
-            <trans-unit id="label.duration">
-                <source>label.duration</source>
-                <target>Duration</target>
-            </trans-unit>
-            <trans-unit id="label.comment">
-                <source>label.comment</source>
-                <target>Comment</target>
-            </trans-unit>
-            <trans-unit id="label.category">
-                <source>label.category</source>
-                <target>Category</target>
-            </trans-unit>
-            <trans-unit id="label.tags">
-                <source>label.tags</source>
-                <target>Tags</target>
-            </trans-unit>
-            <trans-unit id="label.none">
-                <source>label.none</source>
-                <target>None</target>
-            </trans-unit>
-            <trans-unit id="message.empty_list">
-                <source>message.empty_list</source>
-                <target>List is empty.</target>
-            </trans-unit>
-            <trans-unit id="message.song_not_found">
-                <source>message.song_not_found</source>
-                <target>Song not found.</target>
-            </trans-unit>
-            <trans-unit id="title.song_list">
-                <source>title.song_list</source>
-                <target>Songs list</target>
-            </trans-unit>
-            <trans-unit id="title.song_view">
-                <source>title.song_view</source>
-                <target>Song view #%id%</target>
-            </trans-unit>
-            <trans-unit id="title.song_create">
-                <source>title.song_create</source>
-                <target>Create Song</target>
+
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Category Edit</target>
             </trans-unit>
             <trans-unit id="title.song_edit">
                 <source>title.song_edit</source>
-                <target>Edit Song</target>
+                <target>Song Edit</target>
             </trans-unit>
-            <trans-unit id="title.song_delete">
-                <source>title.song_delete</source>
-                <target>Delete Song</target>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>Form error</target>
             </trans-unit>
             <trans-unit id="title.category_create">
                 <source>title.category_create</source>
                 <target>Create Category</target>
             </trans-unit>
-            <trans-unit id="title.category_list">
-                <source>title.category_list</source>
-                <target>Category list</target>
-            </trans-unit>
-            <trans-unit id="title.category_edit">
-                <source>title.category_edit</source>
-                <target>Edit Category</target>
-            </trans-unit>
-            <trans-unit id="title.category_delete">
-                <source>title.category_delete</source>
-                <target>Delete Category</target>
-            </trans-unit>
-            <trans-unit id="action.back_to_list">
-                <source>action.back_to_list</source>
-                <target>Back to list</target>
-            </trans-unit>
-            <trans-unit id="action.edit">
-                <source>action.edit</source>
-                <target>Edit</target>
-            </trans-unit>
-            <trans-unit id="action.delete">
-                <source>action.delete</source>
-                <target>Delete</target>
-            </trans-unit>
-            <trans-unit id="action.update">
-                <source>action.update</source>
-                <target>Update</target>
-            </trans-unit>
-            <trans-unit id="action.create">
-                <source>action.create</source>
-                <target>Create</target>
-            </trans-unit>
-            <trans-unit id="action.show">
-                <source>action.show</source>
-                <target>Show</target>
-            </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
                 <target>Save</target>
             </trans-unit>
-        </body>
-    </file>
+
+        <trans-unit id="message.category_contains_transactions">
+                        <source>message.category_contains_transactions</source>
+                        <target>category contains song</target>
+                    </trans-unit>
+
+    </body>
+  </file>
 </xliff>

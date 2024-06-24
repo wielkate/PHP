@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.tag_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 mb-2 mb-md-0">
+            <h1>{{ 'title.tag_list'|trans }}</h1>
+        </div>
+        <div class="col-md-2 text-end">
+            <a href="{{ path('app_tag_new') }}" class="btn btn-primary">{{ 'action.new'|trans }}</a>
+        </div>
+    </div>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'tag.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.name'|trans, 'tag.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updatedAt'|trans, 'tag.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.createdAt'|trans, 'tag.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.slug'|trans, 'tag.slug') }}</th>
+                <th>{{ 'label.action'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in pagination.items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.updatedAt ? item.createdAt|format_date('long') : '' }}</td>
+                    <td>{{ item.createdAt ? item.updatedAt|format_date('long') : ''  }}</td>
+                    <td>{{ item.slug }}</td>
+                    <td>
+                        <a href="{{ url('tag_show', {id: item.id}) }}" title="{{ 'action.view'|trans }}">
+                            {{ 'action.view'|trans }}
+                        </a>
+                        <a href="{{ url('app_tag_edit', {id: item.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                        <a href="{{ url('app_tag_delete', {id: item.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ dump(pagination.items) }}
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+{#    <div class="btn btn-light">#}
+{#        <a href="{{ url('tag_new') }}" title="{{ 'action.create'|trans }}">#}
+{#            {{ 'action.create'|trans }}</a>#}
+{#    </div>#}
+{% endblock %}

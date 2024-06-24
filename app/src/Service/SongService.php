@@ -7,8 +7,6 @@ namespace App\Service;
 
 use App\Entity\Song;
 use App\Repository\SongRepository;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -47,6 +45,8 @@ class SongService implements SongServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface
     {
+        $songs = $this->songRepository->queryAll();
+
         return $this->paginator->paginate(
             $this->songRepository->queryAll(),
             $page,
@@ -58,11 +58,13 @@ class SongService implements SongServiceInterface
      * Save entity.
      *
      * @param Song $song Song entity
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function save(Song $song): void
     {
+        if (is_null($song->getId())) {
+            $song->setCreatedAt(new \DateTimeImmutable());
+        }
+        $song->setUpdatedAt(new \DateTimeImmutable());
         $this->songRepository->save($song);
     }
 
@@ -70,12 +72,9 @@ class SongService implements SongServiceInterface
      * Delete entity.
      *
      * @param Song $song Song entity
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(Song $song): void
     {
         $this->songRepository->delete($song);
     }
-
 }

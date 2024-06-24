@@ -7,29 +7,66 @@
 {% block body %}
     <h1>{{ 'title.song_view'|trans({'%id%': song.id|default('')}) }}</h1>
     {% if song is defined and song|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ song.id }}</dd>
-            <dt>{{ 'label.createdAt'|trans }}</dt>
-            <dd>{{ song.createdAt|format_date('long') }}</dd>
-            <dt>{{ 'label.updatedAt'|trans }}</dt>
-            <dd>{{ song.updatedAt|format_date('long') }}</dd>
-            <dt>{{ 'label.title'|trans }}</dt>
-            <dd>{{  song.title }}</dd>
-            <dt>{{ 'label.category'|trans }}</dt>
-            <dd>{{  song.category.title }}</dd>
-            <dt>{{ 'label.comment'|trans }}</dt>
-            <dd>{{ task.comment|markdown_to_html }}</dd>
-            <dd>{{  song.comment }}</dd>
-        </dl>
-        <p>
-            <a href="{{ url('song_index') }}" title="{{ 'action.back_to_list'|trans }}">
-                {{ 'action.back_to_list'|trans }}
-            </a>
-        </p>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>{{ 'label.id' | trans }}</th>
+                    <td>{{ song.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'label.title' | trans }}</th>
+                    <td>{{ song.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'label.createdAt' |trans }}</th>
+                    <td>{{ song.createdAt ? song.createdAt|format_date('long') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'label.updatedAt' |trans }}</th>
+                    <td>{{ song.updatedAt ? song.updatedAt|format_date('long') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'label.duration' |trans }}</th>
+                    <td>{{ song.duration ? song.duration|format_date('long') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'label.comment' |trans }}</th>
+                    <td>{{ song.comment }}</td>
+                </tr>
+                {% if song.category is defined and song.category|length %}
+                <tr>
+                    <th>{{ 'label.category' |trans}}
+                    <td>
+                        <a href="{{ path('category_show', {'id': song.category.id}) }}" class="text-decoration-none text-reset">
+                            {{ song.category.title }}
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if song.tag is defined and song.tag|length %}
+                    <tr>
+                        <th>Tags</th>
+                        <td>{% for tag in song.tag %}
+                            <a href="{{ path('app_tag_show', {'id': tag.id}) }}" class="text-decoration-none text-reset">
+                                {{ tag.title |join(', ')  }}{% if not loop.last %},{% endif %}
+                            </a>
+
+                        {% endfor %}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('song_edit', {'id': song.id}) }}" title="{{ 'action.edit'|trans }}">
+            {{ 'action.edit'|trans }}
+        </a>
+
+        <a href="{{ url('song_delete', {id: song.id}) }}" title="{{ 'action.delete'|trans }}">
+            {{ 'action.delete'|trans }}</a>
     {% else %}
         <p>
-            {{ 'message.song_not_found'|trans }}
+            {{ 'message.empty_list' |trans }}
         </p>
     {% endif %}
+    <a href="{{ path('song_index') }}">{{ 'action.back_to_list'|trans }}</a>
 {% endblock %}

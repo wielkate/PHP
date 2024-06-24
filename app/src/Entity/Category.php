@@ -1,74 +1,80 @@
 <?php
+/**
+ * Category entity.
+ */
 
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Category class representing a category entity in the application.
+ */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ORM\Table(name: 'categories')]
-#[ORM\UniqueConstraint(name: 'uq_categories_title', columns: ['title'])]
-#[UniqueEntity(fields: ['title'])]
 class Category
 {
+    // Unique identifier for the category.
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Type('string')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 64)]
+    // Title of the category.
+    #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private ?DateTimeImmutable $createdAt = null;
+    // Timestamp for when the category was created.
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'update')]
-    private ?DateTimeImmutable $updatedAt = null;
+    // Timestamp for when the category was last updated.
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    // Slug (URL-friendly version of the title) for the category.
+    #[ORM\Column(length: 64, nullable: true)]
+    private ?string $slug = null;
 
     /**
-     * @var Collection<int, Song>
+     * @var Collection<int, Song> collection of songs associated with this category
      */
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Song::class)]
+    #[ORM\OneToMany(targetEntity: Song::class, mappedBy: 'category', fetch: 'EXTRA_LAZY')]
     private Collection $songs;
 
     /**
-     * Slug.
-     * @var string|null
+     * koństruktor.
      */
-    #[ORM\Column(type: 'string', length: 64)]
-    #[Assert\Type('string')]
-    #[Assert\Length(min: 3, max: 64)]
-    #[Gedmo\Slug(fields: ['title'])]
-    private ?string $slug;
-
     public function __construct()
     {
         $this->songs = new ArrayCollection();
     }
 
+    /**
+     * Getter for Name.
+     *
+     * @return string|null Name
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null zwaraca
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title param
+     *
+     * @return $this return
+     */
     public function setTitle(string $title): static
     {
         $this->title = $title;
@@ -76,24 +82,40 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
+    /**
+     * @return \DateTimeImmutable|null return
+     */
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
+    /**
+     * @param \DateTimeImmutable $createdAt param
+     *
+     * @return $this return
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeImmutable
+    /**
+     * @return \DateTimeImmutable|null return
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
+    /**
+     * @param \DateTimeImmutable $updatedAt param
+     *
+     * @return $this return
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
@@ -101,44 +123,30 @@ class Category
     }
 
     /**
-     * @return Collection<int, Song>
+     * @return string|null return
      */
-    public function getSongs(): Collection
-    {
-        return $this->songs;
-    }
-
-    public function addSong(Song $song): static
-    {
-        if (!$this->songs->contains($song)) {
-            $this->songs->add($song);
-            $song->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSong(Song $song): static
-    {
-        if ($this->songs->removeElement($song)) {
-            // set the owning side to null (unless already changed)
-            if ($song->getCategory() === $this) {
-                $song->setCategory(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    /**
+     * @param string|null $slug param
+     *
+     * @return $this return
+     */
+    public function setSlug(?string $slug): static
     {
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Song> return
+     */
+    public function getSongs(): Collection
+    {
+        return $this->songs;
     }
 }
