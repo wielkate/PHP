@@ -7,7 +7,6 @@ namespace App\Tests\Controller;
 
 use App\Entity\Category;
 use App\Entity\Enum\UserRole;
-use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Tests\WebBaseTestCase;
 use Doctrine\ORM\OptimisticLockException;
@@ -35,6 +34,9 @@ class CategoryControllerTest extends WebBaseTestCase
         $this->httpClient = static::createClient();
     }
 
+    /**
+     * testIndexRouteAnonymousUser.
+     */
     public function testIndexRouteAnonymousUser(): void
     {
         // given
@@ -157,6 +159,9 @@ class CategoryControllerTest extends WebBaseTestCase
         $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_FOUND, $result->getStatusCode());
     }
 
+    /**
+     * testEditCategory.
+     */
     public function testEditCategory(): void
     {
         // given
@@ -193,6 +198,9 @@ class CategoryControllerTest extends WebBaseTestCase
         );
     }
 
+    /**
+     * testNewRoutAdminUser.
+     */
     public function testNewRoutAdminUser(): void
     {
         $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value, UserRole::ROLE_USER->value], 'categoryCreate1@example.com');
@@ -201,6 +209,9 @@ class CategoryControllerTest extends WebBaseTestCase
         $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_MOVED_PERMANENTLY, $this->httpClient->getResponse()->getStatusCode());
     }
 
+    /**
+     * testDeleteCategory.
+     */
     public function testDeleteCategory(): void
     {
         // given
@@ -234,6 +245,9 @@ class CategoryControllerTest extends WebBaseTestCase
         $this->assertNull($categoryRepository->findOneByTitle('TestCategoryCreated'));
     }
 
+    /**
+     * testCantDeleteCategory.
+     */
     public function testCantDeleteCategory(): void
     {
         // given

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category Type Test.
+ */
 
 namespace App\Tests\Forms;
 
@@ -6,8 +9,14 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
+/**
+ * Class CategoryTypeTest.
+ */
 class CategoryTypeTest extends TypeTestCase
 {
+    /**
+     * testSubmitValidDate.
+     */
     public function testSubmitValidDate()
     {
         $time = new \DateTimeImmutable('now');

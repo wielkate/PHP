@@ -218,6 +218,48 @@
                         <target>category contains song</target>
                     </trans-unit>
 
+                    <trans-unit id="message.user_contains_tasks">
+                        <source>message.user_contains_tasks</source>
+                        <target>User contains tasks</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_list">
+                        <source>title.user_list</source>
+                        <target>User List</target>
+                    </trans-unit>
+                    <trans-unit id="label.roles">
+                        <source>label.roles</source>
+                        <target>Roles</target>
+                    </trans-unit>
+                    <trans-unit id="title.admin">
+                        <source>title.admin</source>
+                        <target>Admin</target>
+                    </trans-unit>
+                    <trans-unit id="title.user">
+                        <source>title.user</source>
+                        <target>User</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_details">
+                        <source>title.user_details</source>
+                        <target>User Details</target>
+                    </trans-unit>
+                    <trans-unit id="message.record_not_found">
+                        <source>message.record_not_found</source>
+                        <target>Record not found</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_edit">
+                        <source>title.user_edit</source>
+                        <target>Edit User</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_delete">
+                        <source>title.user_delete</source>
+                        <target>Delete User</target>
+                    </trans-unit>
+                    <trans-unit id="action_delete">
+                        <source>action_delete</source>
+                        <target>Delete</target>
+                    </trans-unit>
+
+
     </body>
   </file>
 </xliff>

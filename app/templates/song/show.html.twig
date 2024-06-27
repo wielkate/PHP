@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'label.duration' |trans }}</th>
-                    <td>{{ song.duration ? song.duration|format_date('long') : '' }}</td>
+                    <td>{{ song.duration ? song.duration|date("H:i:s")}}</td>
                 </tr>
                 <tr>
                     <th>{{ 'label.comment' |trans }}</th>
@@ -37,7 +37,7 @@
                 <tr>
                     <th>{{ 'label.category' |trans}}
                     <td>
-                        <a href="{{ path('category_show', {'id': song.category.id}) }}" class="text-decoration-none text-reset">
+                        <a href="{{ path('category_show', {'id': song.category.id}) }}" class="text-reset">
                             {{ song.category.title }}
                         </a>
                     </td>

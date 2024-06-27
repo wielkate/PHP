@@ -1,4 +1,7 @@
 <?php
+/**
+ * WebBaseTestCase.
+ */
 
 namespace App\Tests;
 
@@ -15,6 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * Class WebBaseTestCase.
+ */
 class WebBaseTestCase extends WebTestCase
 {
     /**
@@ -25,7 +31,8 @@ class WebBaseTestCase extends WebTestCase
     /**
      * Create user.
      *
-     * @param array $roles User roles
+     * @param array  $roles User roles
+     * @param string $email User email
      *
      * @return User User entity
      */
@@ -69,6 +76,8 @@ class WebBaseTestCase extends WebTestCase
 
     /**
      * Create category.
+     *
+     * @return Category Category
      */
     protected function createCategory(): Category
     {
@@ -84,6 +93,8 @@ class WebBaseTestCase extends WebTestCase
 
     /**
      * Create Tag.
+     *
+     * @return Tag Tag
      */
     protected function createTag(): Tag
     {
@@ -105,16 +116,16 @@ class WebBaseTestCase extends WebTestCase
      */
     protected function createSong(User $user, Category $category): void
     {
-        $Song = new Song();
-        $Song->setTitle('TName');
-        $Song->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
-        $Song->setUpdatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
-        $Song->setDuration(\DateTime::createFromFormat('H:i:s', '00:03:00'));
-        $Song->setComment('test comment');
-        $Song->setCategory($category);
-        $Song->addTag($this->createTag());
+        $song = new Song();
+        $song->setTitle('TName');
+        $song->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
+        $song->setUpdatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
+        $song->setDuration(\DateTime::createFromFormat('H:i:s', '00:03:00'));
+        $song->setComment('test comment');
+        $song->setCategory($category);
+        $song->addTag($this->createTag());
 
-        $SongRepository = self::getContainer()->get(SongRepository::class);
-        $SongRepository->save($Song);
+        $songRepository = self::getContainer()->get(SongRepository::class);
+        $songRepository->save($song);
     }
 }

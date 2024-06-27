@@ -6,13 +6,12 @@
 namespace App\Tests\Service;
 
 use App\Entity\Category;
-use App\Entity\Enum\UserRole;
-use App\Entity\Tag;
 use App\Entity\Song;
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
-use App\Repository\TagRepository;
 use App\Repository\SongRepository;
+use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Service\SongService;
 use Doctrine\ORM\OptimisticLockException;
@@ -39,10 +38,6 @@ class SongServiceTest extends KernelTestCase
      * @var object
      */
     public $userRepository;
-    /**
-     * Song service.
-     */
-    private ?SongService $SongService;
 
     /**
      * Song repository.
@@ -84,7 +79,8 @@ class SongServiceTest extends KernelTestCase
     /**
      * Create user.
      *
-     * @param array $roles User roles
+     * @param array  $roles User roles
+     * @param string $email Email
      *
      * @return User User entity
      *
@@ -112,6 +108,8 @@ class SongServiceTest extends KernelTestCase
 
     /**
      * Create Category.
+     *
+     * @return Category Category
      */
     private function createCategory(): Category
     {
@@ -127,6 +125,8 @@ class SongServiceTest extends KernelTestCase
 
     /**
      * Create Tag.
+     *
+     * @return Tag Tag
      */
     private function createTag(): Tag
     {

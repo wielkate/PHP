@@ -78,7 +78,7 @@ class Tag
      *
      * @param string $title param
      *
-     * @return $this
+     * @return $this return
      */
     public function setTitle(string $title): static
     {
@@ -150,7 +150,7 @@ class Tag
      *
      * @param string|null $slug param
      *
-     * @return $this
+     * @return $this return
      */
     public function setSlug(?string $slug): static
     {
@@ -174,7 +174,7 @@ class Tag
      *
      * @param Song $song param
      *
-     * @return $this
+     * @return $this return
      */
     public function addSong(Song $song): static
     {
@@ -191,7 +191,7 @@ class Tag
      *
      * @param Song $song param
      *
-     * @return $this
+     * @return $this return
      */
     public function removeSong(Song $song): static
     {

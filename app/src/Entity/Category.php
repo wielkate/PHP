@@ -9,6 +9,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category class representing a category entity in the application.
@@ -16,32 +17,31 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
-    // Unique identifier for the category.
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    // Title of the category.
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    // Timestamp for when the category was created.
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    // Timestamp for when the category was last updated.
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    // Slug (URL-friendly version of the title) for the category.
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $slug = null;
 
     /**
      * @var Collection<int, Song> collection of songs associated with this category
      */
-    #[ORM\OneToMany(targetEntity: Song::class, mappedBy: 'category', fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Song::class, fetch: 'EXTRA_LAZY')]
     private Collection $songs;
 
     /**
@@ -55,7 +55,7 @@ class Category
     /**
      * Getter for Name.
      *
-     * @return string|null Name
+     * @return int|null Name
      */
     public function getId(): ?int
     {

@@ -7,56 +7,56 @@
 
     <table class="table">
         <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ category.id }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ category.title }}</td>
-        </tr>
-        <tr>
-            <th>CreatedAt</th>
-            <td>{{ category.createdAt ? category.createdAt|format_date('long') : '' }}</td>
-        </tr>
-        <tr>
-            <th>UpdatedAt</th>
-            <td>{{ category.updatedAt ? category.updatedAt|format_date('long') : '' }}</td>
-        </tr>
-        <tr>
-            <th>Slug</th>
-            <td>{{ category.slug }}</td>
-        </tr>
-        <tr>
-            <td>
-                <table class="table" style="margin-left: 102%;">
-                    <th>{{ 'title.song_list'|trans }}</th>
-                    {% for song in category.songs %}
-                        <tr>
-                            <td>
-                                <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">
-                                    {{ song.title }}
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </td>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ category.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ category.title }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ category.createdAt ? category.createdAt|format_date('long') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ category.updatedAt ? category.updatedAt|format_date('long') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ category.slug }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table" style="margin-left: 102%;">
+                        <th>{{ 'title.song_list'|trans }}</th>
+                        {% for song in category.songs %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">
+                                        {{ song.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
         </tbody>
     </table>
-    {#    <table>#}
-    {#        <th>{{ 'title.song_list'|trans }}</th>#}
-    {#        {% for song in category.songs %}#}
-    {#            <tr>#}
-    {#                <td>#}
-    {#                    <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">#}
-    {#                        {{ song.title }}#}
-    {#                    </a>#}
-    {#                </td>#}
-    {#            </tr>#}
-    {#        {% endfor %}#}
-    {#    </table>#}
+{#    <table>#}
+{#        <th>{{ 'title.song_list'|trans }}</th>#}
+{#        {% for song in category.songs %}#}
+{#            <tr>#}
+{#                <td>#}
+{#                    <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">#}
+{#                        {{ song.title }}#}
+{#                    </a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
 
 
     <a href="{{ path('category_index') }}">{{ 'action.back_to_list'|trans }}</a>

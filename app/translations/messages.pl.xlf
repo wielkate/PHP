@@ -214,6 +214,47 @@
                         <source>message.category_contains_transactions</source>
                         <target>nie można usunąć kategorii przypisanej do piosenki!</target>
                     </trans-unit>
+
+                    <trans-unit id="message.user_contains_tasks">
+                        <source>message.user_contains_tasks</source>
+                        <target>Użytkownik zawiera zadania</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_list">
+                        <source>title.user_list</source>
+                        <target>Lista użytkowników</target>
+                    </trans-unit>
+                    <trans-unit id="label.roles">
+                        <source>label.roles</source>
+                        <target>Role</target>
+                    </trans-unit>
+                    <trans-unit id="title.admin">
+                        <source>title.admin</source>
+                        <target>Administrator</target>
+                    </trans-unit>
+                    <trans-unit id="title.user">
+                        <source>title.user</source>
+                        <target>Użytkownik</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_details">
+                        <source>title.user_details</source>
+                        <target>Szczegóły użytkownika</target>
+                    </trans-unit>
+                    <trans-unit id="message.record_not_found">
+                        <source>message.record_not_found</source>
+                        <target>Rekord nie znaleziony</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_edit">
+                        <source>title.user_edit</source>
+                        <target>Edytuj użytkownika</target>
+                    </trans-unit>
+                    <trans-unit id="title.user_delete">
+                        <source>title.user_delete</source>
+                        <target>Usuń użytkownika</target>
+                    </trans-unit>
+                    <trans-unit id="action_delete">
+                        <source>action_delete</source>
+                        <target>Usuń</target>
+                    </trans-unit>
     </body>
   </file>
 </xliff>

@@ -29,17 +29,12 @@
             </tr>
         </tbody>
     </table>
-    <p>
-        <a href="{{ url('app_tag_index') }}" title="{{ 'action.back_to_list'|trans }}">
-            {{ 'action.back_to_list'|trans }}
-        </a>
-    </p>
-    <div class="btn btn-light">
-        <a href="{{ url('app_tag_edit', {id: tag.id}) }}" title="{{ 'action.edit'|trans }}">
-            {{ 'action.edit'|trans }}</a>
-    </div>
-    <div class="btn btn-light">
-        <a href="{{ url('app_tag_delete', {id: tag.id}) }}" title="{{ 'action.delete'|trans }}">
-            {{ 'action.delete'|trans }}</a>
-    </div>
+<a href="{{ path('app_tag_edit', {'id': tag.id}) }}" title="{{ 'action.edit'|trans }}">
+    {{ 'action.edit'|trans }}
+</a>
+
+<a href="{{ url('app_tag_delete', {id: tag.id}) }}" title="{{ 'action.delete'|trans }}">
+    {{ 'action.delete'|trans }}</a>
+
+<a href="{{ path('app_tag_index') }}">{{ 'action.back_to_list'|trans }}</a>
 {% endblock %}

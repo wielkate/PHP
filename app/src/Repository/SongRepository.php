@@ -99,6 +99,16 @@ class SongRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $id param
+     *
+     * @return Song|null return
+     */
+    public function findOneById(int $id): ?Song
+    {
+        return $this->find($id);
+    }
+
+    /**
      * Delete entity.
      *
      * @param Song $song Song entity
@@ -111,16 +121,6 @@ class SongRepository extends ServiceEntityRepository
         assert($this->_em instanceof EntityManager);
         $this->_em->remove($song);
         $this->_em->flush();
-    }
-
-    /**
-     * @param int $id param
-     *
-     * @return Song|null return
-     */
-    public function findOneById(int $id): ?Song
-    {
-        return $this->find($id);
     }
 
     /**

@@ -5,9 +5,8 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\Tag;
 use App\Entity\Enum\UserRole;
-use App\Entity\User;
+use App\Entity\Tag;
 use App\Repository\TagRepository;
 use App\Tests\WebBaseTestCase;
 use Doctrine\ORM\OptimisticLockException;
@@ -35,6 +34,9 @@ class TagControllerTest extends WebBaseTestCase
         $this->httpClient = static::createClient();
     }
 
+    /**
+     * testIndexRouteAnonymousUser.
+     */
     public function testIndexRouteAnonymousUser(): void
     {
         // given
@@ -157,6 +159,9 @@ class TagControllerTest extends WebBaseTestCase
         $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_SEE_OTHER, $result->getStatusCode());
     }
 
+    /**
+     * testEditTag.
+     */
     public function testEditTag(): void
     {
         // given
@@ -193,6 +198,9 @@ class TagControllerTest extends WebBaseTestCase
         );
     }
 
+    /**
+     * testNewRoutAdminUser.
+     */
     public function testNewRoutAdminUser(): void
     {
         $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value, UserRole::ROLE_USER->value], 'tagCreate1@example.com');
@@ -201,6 +209,9 @@ class TagControllerTest extends WebBaseTestCase
         $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_OK, $this->httpClient->getResponse()->getStatusCode());
     }
 
+    /**
+     * testDeleteTag.
+     */
     public function testDeleteTag(): void
     {
         // given

@@ -5,16 +5,15 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\Song;
 use App\Entity\Enum\UserRole;
-use App\Entity\User;
+use App\Entity\Song;
 use App\Repository\SongRepository;
 use App\Tests\WebBaseTestCase;
-use DateTime;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SongControllerTest.
@@ -36,6 +35,9 @@ class SongControllerTest extends WebBaseTestCase
         $this->httpClient = static::createClient();
     }
 
+    /**
+     * TestIndexRouteAnonymousUser.
+     */
     public function testIndexRouteAnonymousUser(): void
     {
         // given
@@ -117,12 +119,10 @@ class SongControllerTest extends WebBaseTestCase
         $result = $this->httpClient->getResponse();
 
         // then
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_OK, $result->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $result->getStatusCode());
         $this->assertSelectorTextContains('th', 'ID');
         // ... more assertions...
     }
-
-    // create song
 
     /**
      * @throws OptimisticLockException
@@ -130,34 +130,6 @@ class SongControllerTest extends WebBaseTestCase
      * @throws ORMException
      * @throws ContainerExceptionInterface
      */
-    //    public function testCreateSong(): void
-    //    {
-    //        // given
-    //        $user = $this->createUser([UserRole::ROLE_USER->value],
-    //            'song_created_user2@example.com');
-    //        $this->httpClient->loginUser($user);
-    //        $songSongTitle = "createdCategor";
-    //        $songSongDuration = "createdCategor";
-    //        $songRepository = static::getContainer()->get(SongRepository::class);
-    //
-    //        $this->httpClient->request('GET', self::TEST_ROUTE . '/create');
-    //        // when
-    //        $this->httpClient->submitForm(
-    //            'Zapisz',
-    //            ['song' => ['title' => $songSongTitle]]
-    //        );
-    //
-    //        // then
-    //        $savedSong = $songRepository->findOneByTitle($songSongTitle);
-    //        $this->assertEquals($songSongTitle,
-    //            $savedSong->getTitle());
-    //
-    //
-    //        $result = $this->httpClient->getResponse();
-    //        $this->assertEquals(302, $result->getStatusCode());
-    //
-    //    }
-
     public function testEditSong(): void
     {
         // given
@@ -196,47 +168,14 @@ class SongControllerTest extends WebBaseTestCase
         );
     }
 
+    /**
+     * Test New Rout Admin User.
+     */
     public function testNewRoutAdminUser(): void
     {
         $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value, UserRole::ROLE_USER->value], 'songCreate1@example.com');
         $this->httpClient->loginUser($adminUser);
         $this->httpClient->request(\Symfony\Component\HttpFoundation\Request::METHOD_GET, self::TEST_ROUTE.'/');
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_MOVED_PERMANENTLY, $this->httpClient->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_MOVED_PERMANENTLY, $this->httpClient->getResponse()->getStatusCode());
     }
-
-    /*
-     * @return void
-     */
-    //    public function testDeleteSong(): void
-    //    {
-    //        // given
-    //        $user = null;
-    //        try {
-    //            $user = $this->createUser([UserRole::ROLE_USER->value],
-    //                'song_deleted_user1@example.com');
-    //        } catch (OptimisticLockException|ORMException|NotFoundExceptionInterface|ContainerExceptionInterface $e) {
-    //        }
-    //        $this->httpClient->loginUser($user);
-    //
-    //        $songRepository =
-    //            static::getContainer()->get(SongRepository::class);
-    //        $testSong = new Song();
-    //        $testSong->setTitle('TestSongCreated');
-    //        $testSong->setCreatedAt(new \DateTimeImmutable('now'));
-    //        $testSong->setUpdatedAt(new \DateTimeImmutable('now'));
-    //        $testSong->setDuration(new DateTime('00:03:00'));
-    //        $testSong->setComment('Test comment');
-    //        $songRepository->save($testSong);
-    //        $testSongId = $testSong->getId();
-    //
-    //        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $testSongId . '/delete');
-    //
-    //        //when
-    //        $this->httpClient->submitForm(
-    //            'Usuń'
-    //        );
-    //
-    //        // then
-    //        $this->assertNull($songRepository->findOneByTitle('TestSongCreated'));
-    //    }
 }

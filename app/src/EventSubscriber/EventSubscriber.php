@@ -37,7 +37,6 @@ class EventSubscriber implements EventSubscriberInterface
         $exception = $event->getThrowable();
 
         if ($exception instanceof NotFoundHttpException) {
-            // Pobierz ścieżkę, która spowodowała wyjątek
             $request = $this->requestStack->getCurrentRequest();
             $path = $request->getPathInfo();
             $redirectRoute = $this->determineRedirectRoute($path);
