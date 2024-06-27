@@ -1,0 +1,111 @@
+
+Found 0 of 32 files that can be fixed in 0.644 seconds, 18.00 MB memory used
+
+Found 0 of 12 files that can be fixed in 0.357 seconds, 18.00 MB memory used
+
+FILE: /home/wwwroot/app/tests/Entity/Enum/UserRoleTest.php
+------------------------------------------------------------------------
+FOUND 2 ERRORS AND 1 WARNING AFFECTING 3 LINES
+------------------------------------------------------------------------
+  3 | WARNING | The license block has to be present at the top
+    |         |                 of every PHP file, before the namespace
+  8 | ERROR   | Missing doc comment for class UserRoleTest
+ 10 | ERROR   | Missing doc comment for function testLabel()
+------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/WebBaseTestCase.php
+-----------------------------------------------------------------------------
+FOUND 15 ERRORS AND 1 WARNING AFFECTING 15 LINES
+-----------------------------------------------------------------------------
+   3 | WARNING | The license block has to be present at the top
+     |         |                 of every PHP file, before the namespace
+  18 | ERROR   | Missing doc comment for class WebBaseTestCase
+  25 | ERROR   | Doc comment for parameter "$email" missing
+  72 | ERROR   | Missing @return tag in function comment
+  87 | ERROR   | Missing @return tag in function comment
+ 108 | ERROR   | Variable "Song" is not in valid camel caps format
+ 109 | ERROR   | Variable "Song" is not in valid camel caps format
+ 110 | ERROR   | Variable "Song" is not in valid camel caps format
+ 111 | ERROR   | Variable "Song" is not in valid camel caps format
+ 112 | ERROR   | Variable "Song" is not in valid camel caps format
+ 113 | ERROR   | Variable "Song" is not in valid camel caps format
+ 114 | ERROR   | Variable "Song" is not in valid camel caps format
+ 115 | ERROR   | Variable "Song" is not in valid camel caps format
+ 117 | ERROR   | Variable "SongRepository" is not in valid camel caps format
+ 118 | ERROR   | Variable "SongRepository" is not in valid camel caps format
+ 118 | ERROR   | Variable "Song" is not in valid camel caps format
+-----------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Service/SongServiceTest.php
+-------------------------------------------------------------------------------
+FOUND 4 ERRORS AFFECTING 4 LINES
+-------------------------------------------------------------------------------
+  45 | ERROR | Member variable "SongService" is not in valid camel caps format
+  84 | ERROR | Doc comment for parameter "$email" missing
+ 115 | ERROR | Missing @return tag in function comment
+ 130 | ERROR | Missing @return tag in function comment
+-------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Controller/SongControllerTest.php
+------------------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 3 LINES
+------------------------------------------------------------------------------
+  39 | ERROR | Missing doc comment for function testIndexRouteAnonymousUser()
+ 161 | ERROR | You must use "/**" style comments for a function comment
+ 199 | ERROR | Missing doc comment for function testNewRoutAdminUser()
+------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Controller/TagControllerTest.php
+------------------------------------------------------------------------------
+FOUND 4 ERRORS AFFECTING 4 LINES
+------------------------------------------------------------------------------
+  38 | ERROR | Missing doc comment for function testIndexRouteAnonymousUser()
+ 160 | ERROR | Missing doc comment for function testEditTag()
+ 196 | ERROR | Missing doc comment for function testNewRoutAdminUser()
+ 204 | ERROR | Missing doc comment for function testDeleteTag()
+------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Controller/CategoryControllerTest.php
+------------------------------------------------------------------------------
+FOUND 5 ERRORS AFFECTING 5 LINES
+------------------------------------------------------------------------------
+  38 | ERROR | Missing doc comment for function testIndexRouteAnonymousUser()
+ 160 | ERROR | Missing doc comment for function testEditCategory()
+ 196 | ERROR | Missing doc comment for function testNewRoutAdminUser()
+ 204 | ERROR | Missing doc comment for function testDeleteCategory()
+ 237 | ERROR | Missing doc comment for function testCantDeleteCategory()
+------------------------------------------------------------------------------
+
+
+FILE: /home/wwwroot/app/tests/Forms/CategoryTypeTest.php
+------------------------------------------------------------------------
+FOUND 2 ERRORS AND 1 WARNING AFFECTING 3 LINES
+------------------------------------------------------------------------
+  3 | WARNING | The license block has to be present at the top
+    |         |                 of every PHP file, before the namespace
+  9 | ERROR   | Missing doc comment for class CategoryTypeTest
+ 11 | ERROR   | Missing doc comment for function testSubmitValidDate()
+------------------------------------------------------------------------
+
+Time: 589ms; Memory: 10MB
+
+ ------- -------- ---- ---------------------- 
+  State   Domain   Id   Message Preview (en)  
+ ------- -------- ---- ---------------------- 
+
+ ------- -------- ---- ---------------------- ------------------------------- 
+  State   Domain   Id   Message Preview (pl)   Fallback Message Preview (en)  
+ ------- -------- ---- ---------------------- ------------------------------- 
+
+[notice] Migrating up to DoctrineMigrations\Version20240624162713
+   > purging database
+   > loading App\DataFixtures\AppFixtures
+   > loading App\DataFixtures\CategoryFixtures
+   > loading App\DataFixtures\SongFixtures
+   > loading App\DataFixtures\TagFixtures
+   > loading App\DataFixtures\UserFixtures

@@ -44,7 +44,9 @@
                     <td>{{ song.duration|date("H:i:s")}}</td>
                     <td>
                         {% if song.category %}
-                            {{ song.category.title }}
+                            <a href="{{ url('category_show', {id: song.category.id}) }}" title="{{ 'action.show'|trans }}">
+                                {{ song.category.title }}
+                            </a>
                         {% endif %}
                     </td>
                     <td>{{ song.comment }}</td>
