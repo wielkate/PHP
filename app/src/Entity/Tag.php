@@ -9,6 +9,8 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Tag class representing a tag entity in the application.
@@ -22,21 +24,31 @@ class Tag
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
      * @var \DateTimeImmutable|null timestamp for when the tag was created
      */
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * @var \DateTimeImmutable|null timestamp for when the tag was last updated
      */
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     #[ORM\Column(length: 64, nullable: true)]
+    #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
     /**
@@ -46,7 +58,7 @@ class Tag
     private Collection $songs;
 
     /**
-     * konstruktor.
+     * constructor.
      */
     public function __construct()
     {

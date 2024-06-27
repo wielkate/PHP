@@ -49,6 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
+    #[Assert\Type('string')]
     private ?string $password = null;
 
     /**
@@ -154,7 +155,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Getter for salt.
      *
-     * @return string|null|null Salt
+     * @return string|null Salt
      *
      * @see UserInterface
      */

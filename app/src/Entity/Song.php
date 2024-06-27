@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Song class representing a song entity in the application.
@@ -25,14 +27,21 @@ class Song
 
     // Title of the song.
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     // Timestamp for when the song was created.
     #[ORM\Column]
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     // Timestamp for when the song was last updated.
     #[ORM\Column]
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
@@ -42,7 +51,7 @@ class Song
     private Collection $tags;
 
     // Category associated with the song.
-    #[ORM\ManyToOne(Category::class, inversedBy: 'songs', fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToOne(Category::class, fetch: 'EXTRA_LAZY', inversedBy: 'songs')]
     private ?Category $category = null;
 
     // Duration of the song (stored as TIME_MUTABLE).
@@ -54,7 +63,7 @@ class Song
     private ?string $comment = null;
 
     /**
-     * koństruktor.
+     * constructor.
      */
     public function __construct()
     {
