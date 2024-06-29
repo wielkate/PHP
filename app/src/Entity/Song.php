@@ -10,8 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Song class representing a song entity in the application.
@@ -58,9 +58,15 @@ class Song
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duration = null;
 
-    // Comment associated with the song.
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $comment = null;
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(mappedBy: 'song', targetEntity: Comment::class, cascade: ['remove'])]
+    private Collection $comments;
+
+    //    // Comment associated with the song.
+    //    #[ORM\Column(type: Types::TEXT)]
+    //    private ?string $comment = null;
 
     /**
      * constructor.
@@ -68,6 +74,7 @@ class Song
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -212,25 +219,25 @@ class Song
         return $this;
     }
 
-    /**
-     * @return string|null return
-     */
-    public function getComment(): ?string
-    {
-        return $this->comment;
-    }
+    //    /**
+    //     * @return string|null return
+    //     */
+    //    public function getComment(): ?string
+    //    {
+    //        return $this->comment;
+    //    }
 
-    /**
-     * @param string|null $comment param
-     *
-     * @return $this return
-     */
-    public function setComment(?string $comment): static
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
+    //    /**
+    //     * @param string|null $comment param
+    //     *
+    //     * @return $this return
+    //     */
+    //    public function setComment(?string $comment): static
+    //    {
+    //        $this->comment = $comment;
+    //
+    //        return $this;
+    //    }
 
     /**
      * Get the formatted updated date.
@@ -250,5 +257,43 @@ class Song
     public function getFormattedCreatedAt(): string
     {
         return $this->createdAt->format('Y\m\d');
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment $comment param
+     *
+     * @return $this return
+     */
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setSong($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment paramm
+     *
+     * @return $this retur
+     */
+    public function removeComment(Comment $comment): static
+    {
+        // set the owning side to null (unless already changed)
+        if ($this->comments->removeElement($comment) && $comment->getSong() === $this) {
+            $comment->setSong(null);
+        }
+
+        return $this;
     }
 }

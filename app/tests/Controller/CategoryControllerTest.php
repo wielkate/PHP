@@ -254,7 +254,7 @@ class CategoryControllerTest extends WebBaseTestCase
         $user = null;
         try {
             $user = $this->createUser(
-                [UserRole::ROLE_USER->value],
+                [UserRole::ROLE_ADMIN->value],
                 'category_deleted_user2@example.com'
             );
         } catch (OptimisticLockException|ORMException|NotFoundExceptionInterface|ContainerExceptionInterface) {

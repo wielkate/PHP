@@ -110,7 +110,6 @@ class SongControllerTest extends WebBaseTestCase
         $expectedSong->setCreatedAt(new \DateTimeImmutable('now'));
         $expectedSong->setUpdatedAt(new \DateTimeImmutable('now'));
         $expectedSong->setDuration(new \DateTime('00:03:00'));
-        $expectedSong->setComment('Test comment');
         $songRepository = static::getContainer()->get(SongRepository::class);
         $songRepository->save($expectedSong);
 
@@ -134,7 +133,7 @@ class SongControllerTest extends WebBaseTestCase
     {
         // given
         $user = $this->createUser(
-            [UserRole::ROLE_USER->value],
+            [UserRole::ROLE_ADMIN->value],
             'song_edit_user1@example.com'
         );
         $this->httpClient->loginUser($user);
@@ -146,7 +145,6 @@ class SongControllerTest extends WebBaseTestCase
         $testSong->setCreatedAt(new \DateTimeImmutable('now'));
         $testSong->setUpdatedAt(new \DateTimeImmutable('now'));
         $testSong->setDuration(new \DateTime('00:03:00'));
-        $testSong->setComment('Test comment');
         $songRepository->save($testSong);
         $testSongId = $testSong->getId();
         $expectedNewSongTitle = 'TestSongEdit';

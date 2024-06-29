@@ -58,7 +58,7 @@ class SongRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->select(
-                'partial song.{id, comment, createdAt, updatedAt, title, duration, category}',
+                'partial song.{id, createdAt, updatedAt, title, duration, category}',
                 'partial category.{id, title}',
             )
             ->leftJoin('song.category', 'category')

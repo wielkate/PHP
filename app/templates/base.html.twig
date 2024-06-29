@@ -25,19 +25,20 @@
                         <li class="nav-item active">
                             <a class="nav-link"
                                href="{{ path('song_index') }}"> {{ 'title.home'|trans }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_tag_index') }}">{{ 'title.tag_list'|trans }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="{{ path('song_index') }}">{{ 'title.song_list'|trans }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="{{ path('category_index') }}">{{ 'title.category_list'|trans }}</a>
-                        </li>
+                        </li> <li class="nav-item">
+                             <a class="nav-link"
+                                href="{{ path('song_index') }}">{{ 'title.song_list'|trans }}</a>
+                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_tag_index') }}">{{ 'title.tag_list'|trans }}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ path('category_index') }}">{{ 'title.category_list'|trans }}
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('user_index') }}">{{ 'title.user_list'|trans }}</a>
                             </li>
@@ -48,7 +49,10 @@
                         <div class="mb-3"
                              style="text-align: right; display:flex; padding-left: max(250px, 1%); padding-right: max(20px, 1%); color: rgba(255,255,255,.55);">
                             {{ app.user.email }} <a style="display:flex; margin-left:12px;"
-                                                    href="{{ path('app_logout') }}">{{ 'action.logout'|trans }}</a>
+                                                href="{{ path('app_logout') }}">{{ 'action.logout'|trans }}</a>
+                        </div>
+                        <div class="mb-3" style="text-align: right; display:flex; padding-left: max(250px, 1%); padding-right: max(20px, 1%); color: rgba(255,255,255,.55);">
+                             <a style="display:flex; margin-left:12px;" href="{{ path('user_change_password', {id: app.user.id}) }}">{{ 'action.change_password'|trans }}</a>
                         </div>
                     {% else %}
                         <div class="mb-3"

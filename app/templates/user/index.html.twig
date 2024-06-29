@@ -34,9 +34,9 @@
                         <a href="{{ url('user_show', {id: user.id}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}
                         </a>
-                        <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'action.edit'|trans }}">
-                            {{ 'action.edit'|trans }}
-                        </a>
+{#                        <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'action.edit'|trans }}">#}
+{#                            {{ 'action.edit'|trans }}#}
+{#                        </a>#}
 
                         <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}</a>
@@ -56,8 +56,8 @@
             message: 'message.empty_list'|trans
         } %}
     {% endif %}
-    <div class="btn btn-light">
-        <a href="{{ url('user_create') }}" title="{{ 'action.create'|trans }}">
-            {{ 'action.create'|trans }}</a>
-    </div>
+{#    <div class="btn btn-light">#}
+{#        <a href="{{ url('user_create') }}" title="{{ 'action.create'|trans }}">#}
+{#            {{ 'action.create'|trans }}</a>#}
+{#    </div>#}
 {% endblock %}

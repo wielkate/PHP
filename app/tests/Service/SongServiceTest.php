@@ -58,7 +58,6 @@ class SongServiceTest extends KernelTestCase
         $expectedSong->setUpdatedAt(new \DateTimeImmutable('now'));
         $expectedSong->setCreatedAt(new \DateTimeImmutable('now'));
         $expectedSong->setDuration(\DateTime::createFromFormat('H:i:s', '00:01:59'));
-        $expectedSong->setComment('Test comment');
         $expectedSong->setCategory($this->createCategory());
         $expectedSong->addTag($this->createTag());
         //        try {

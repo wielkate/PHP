@@ -6,7 +6,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Song;
-use Faker\Factory;
 use Random\RandomException;
 
 /**
@@ -23,24 +22,23 @@ class SongFixtures extends AbstractBaseFixtures
      */
     public function loadData(): void
     {
-        $faker = Factory::create();
-
-        for ($i = 0; $i < 20; ++$i) {
+        $this->createMany(20, 'songs', function ($i) {
             $song = new Song();
-            $song->setTitle($faker->words(random_int(1, 6), true));
+            $song->setTitle($this->faker->words(random_int(1, 6), true));
             $song->setCategory($this->getRandomReference('categories'));
             $song->setCreatedAt(
-                \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-100 days', '-1 days'))
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
             $song->setUpdatedAt(
-                \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-100 days', '-1 days'))
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
             $duration = \DateTime::createFromFormat('H:i:s', '00:0'.random_int(1, 9).':'.random_int(0, 5).random_int(0, 9));
             $song->setDuration($duration);
-            $song->setComment($faker->text(30));
 
-            $this->manager->persist($song);
-        }
+            $this->addReference('song_'.$i, $song); // Dodajemy referencję do piosenki
+
+            return $song; // Zwróć utworzony obiekt
+        });
 
         $this->manager->flush();
     }

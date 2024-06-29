@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -55,6 +56,7 @@ class SongController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}', name: 'song_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    #[IsGranted('VIEW', subject: 'song')]
     public function show(Song $song): Response
     {
         return $this->render('song/show.html.twig', ['song' => $song]);
@@ -101,6 +103,7 @@ class SongController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'song_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|POST')]
+    #[IsGranted('EDIT', subject: 'song')]
     public function edit(Request $request, Song $song): Response
     {
         $form = $this->createForm(
@@ -142,6 +145,7 @@ class SongController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'song_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[IsGranted('DELETE', subject: 'song')]
     public function delete(Request $request, Song $song): Response
     {
         $form = $this->createForm(

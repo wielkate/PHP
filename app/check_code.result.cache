@@ -1,7 +1,7 @@
 
-Found 0 of 36 files that can be fixed in 0.734 seconds, 18.00 MB memory used
+Found 0 of 45 files that can be fixed in 0.873 seconds, 18.00 MB memory used
 
-Found 0 of 9 files that can be fixed in 0.318 seconds, 18.00 MB memory used
+Found 0 of 13 files that can be fixed in 0.382 seconds, 18.00 MB memory used
  ------- -------- ---- ---------------------- 
   State   Domain   Id   Message Preview (en)  
  ------- -------- ---- ---------------------- 
@@ -10,10 +10,16 @@ Found 0 of 9 files that can be fixed in 0.318 seconds, 18.00 MB memory used
   State   Domain   Id   Message Preview (pl)   Fallback Message Preview (en)  
  ------- -------- ---- ---------------------- ------------------------------- 
 
-[notice] Migrating up to DoctrineMigrations\Version20240624162713
+[notice] Migrating up to DoctrineMigrations\Version20240629013502
+[notice] finished in 1545.7ms, used 20M memory, 1 migrations executed, 10 sql queries
+
+ [OK] Successfully migrated to version: DoctrineMigrations\Version20240629013502                                        
+
+
    > purging database
    > loading App\DataFixtures\AppFixtures
    > loading App\DataFixtures\CategoryFixtures
    > loading App\DataFixtures\SongFixtures
    > loading App\DataFixtures\TagFixtures
    > loading App\DataFixtures\UserFixtures
+   > loading App\DataFixtures\CommentFixtures

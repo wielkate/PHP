@@ -112,20 +112,21 @@ class WebBaseTestCase extends WebTestCase
      * @param User     $user     param
      * @param Category $category param
      *
-     * @return void return
+     * @return Song return
      */
-    protected function createSong(User $user, Category $category): void
+    protected function createSong(User $user, Category $category): Song
     {
         $song = new Song();
         $song->setTitle('TName');
         $song->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
         $song->setUpdatedAt(\DateTimeImmutable::createFromFormat('Y-m-d', '2021-05-09'));
         $song->setDuration(\DateTime::createFromFormat('H:i:s', '00:03:00'));
-        $song->setComment('test comment');
         $song->setCategory($category);
         $song->addTag($this->createTag());
 
         $songRepository = self::getContainer()->get(SongRepository::class);
         $songRepository->save($song);
+
+        return $song;
     }
 }

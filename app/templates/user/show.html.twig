@@ -20,9 +20,9 @@
             <dd>{{ user.email }}</dd>
 
         </dl>
-        <a href="{{ path('user_edit', {'id': user.id}) }}" title="{{ 'action.edit'|trans }}">
-            {{ 'action.edit'|trans }}
-        </a>
+{#        <a href="{{ path('user_edit', {'id': user.id}) }}" title="{{ 'action.edit'|trans }}">#}
+{#            {{ 'action.edit'|trans }}#}
+{#        </a>#}
 
         <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'action.delete'|trans }}">
             {{ 'action.delete'|trans }}</a>

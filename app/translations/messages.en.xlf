@@ -2,7 +2,30 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
-
+      <trans-unit id="action.change_password">
+            <source>action.change_password</source>
+            <target>Change password</target>
+          </trans-unit>
+  <trans-unit id="current_password">
+       <source>current_password</source>
+       <target>Please, enter your old password</target>
+     </trans-unit>
+        <trans-unit id="message.current_password_is_incorrect">
+             <source>message.current_password_is_incorrect</source>
+             <target>Current password is incorrect</target>
+           </trans-unit>
+           <trans-unit id="label.change_Password">
+             <source>label.change_Password</source>
+             <target>Change Password</target>
+           </trans-unit>
+           <trans-unit id="action.change_Password">
+             <source>action.change_Password</source>
+             <target>Change Password</target>
+           </trans-unit>
+     <trans-unit id="validators.new_password">
+       <source>validators.new_password</source>
+       <target>Please, enter your new password</target>
+     </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
         <target>Actions</target>
@@ -99,6 +122,18 @@
         <source>action.view</source>
         <target>View</target>
       </trans-unit>
+     <trans-unit id="title.comment_create">
+      <source>title.comment_create</source>
+      <target>Create Comment</target>
+    </trans-unit>
+    <trans-unit id="title.comment_delete">
+      <source>title.comment_delete</source>
+      <target>Delete Comment</target>
+    </trans-unit>
+    <trans-unit id="title.comment_list">
+      <source>title.comment_list</source>
+      <target>Comment List</target>
+    </trans-unit>
       <trans-unit id="message.created_successfully">
               <source>message.created_successfully</source>
               <target>created successfully</target>

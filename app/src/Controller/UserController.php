@@ -6,10 +6,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\Type\UserType;
+use App\Form\ChangePasswordType;
 use App\Service\UserServiceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,11 +26,11 @@ class UserController extends AbstractController
     /**
      * Constructor.
      *
-     * @param UserServiceInterface        $userService     service to modifai
-     * @param UserPasswordHasherInterface $passwordHarsher haser pass to change password
-     * @param TranslatorInterface         $translator      translator to translate label
+     * @param UserServiceInterface        $userService    service to modify
+     * @param UserPasswordHasherInterface $passwordHasher password hasher to change password
+     * @param TranslatorInterface         $translator     translator to translate labels
      */
-    public function __construct(private readonly UserServiceInterface $userService, private readonly UserPasswordHasherInterface $passwordHarsher, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly UserServiceInterface $userService, private readonly UserPasswordHasherInterface $passwordHasher, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -69,98 +71,7 @@ class UserController extends AbstractController
     {
         return $this->render(
             'user/show.html.twig',
-            ['user' => $user,
-            ]
-        );
-    }
-
-    /**
-     * Create action.
-     *
-     * @param Request $request HTTP request
-     *
-     * @return Response HTTP response
-     */
-    #[\Symfony\Component\Routing\Attribute\Route(
-        '/create',
-        name: 'user_create',
-        methods: 'GET|POST',
-    )]
-    public function create(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $this->passwordHarsher->hashPassword(
-                    $user,
-                    $user->getPassword()
-                )
-            );
-            $this->userService->save($user);
-
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message.created_successfully')
-            );
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render(
-            'user/create.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
-
-    /**
-     * Edit action.
-     *
-     * @param Request $request HTTP request
-     * @param User    $user    User entity
-     *
-     * @return Response HTTP response
-     */
-    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'user_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
-    public function edit(Request $request, User $user): Response
-    {
-        $user->setPassword('');
-        $form = $this->createForm(
-            UserType::class,
-            $user,
-            [
-                'method' => 'PUT',
-                'action' => $this->generateUrl(
-                    'user_edit',
-                    ['id' => $user->getId()]
-                ),
-            ]
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($this->passwordHarsher->hashPassword(
-                $user,
-                $user->getPassword()
-            ));
-            $this->userService->save($user);
-
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message.created_successfully')
-            );
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render(
-            'user/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'user' => $user,
-            ]
+            ['user' => $user]
         );
     }
 
@@ -199,5 +110,61 @@ class UserController extends AbstractController
                 'user' => $user,
             ]
         );
+    }
+
+    /**
+     * Change password action.
+     *
+     * @param Request                     $request        HTTP request
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
+     * @param EntityManagerInterface      $entityManager  Entity manager
+     *
+     * @return Response HTTP response
+     */
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/change-password', name: 'user_change_password', requirements: ['id' => '[1-9]\d*'], methods: 'GET|POST')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        $form = $this->createForm(ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('current_password')->getData();
+            $newPassword = $form->get('new_password')->getData();
+
+            // Sprawdzenie, czy aktualne hasło jest poprawne
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                $form->get('current_password')->addError(new FormError($this->translator->trans('message.current_password_is_incorrect')));
+
+                return $this->render('user/change_password.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
+            $user->setPassword(
+                $passwordHasher->hashPassword(
+                    $user,
+                    $newPassword
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.created_successfully')
+            );
+
+            return $this->redirectToRoute('song_index'); // lub inną trasę po zmianie hasła
+        }
+
+        return $this->render('user/change_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

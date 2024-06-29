@@ -30,7 +30,7 @@ echo "DB_PORT: $DB_PORT"
 echo "DB_NAME: $DB_NAME"
 
 # SQL do dropowania tabel
-SQL_DROP_TABLES="DROP TABLE IF EXISTS tag, song, category, song_tag, doctrine_migration_versions;"
+SQL_DROP_TABLES="DROP TABLE IF EXISTS tag, song, category, song_tag, doctrine_migration_versions, user, comment, users;"
 
 # Wykonanie polecenia MySQL
 mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -P"$DB_PORT" "$DB_NAME" -e "$SQL_DROP_TABLES"

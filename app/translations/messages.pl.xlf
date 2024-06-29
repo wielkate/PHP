@@ -2,7 +2,30 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
-
+    <trans-unit id="message.current_password_is_incorrect">
+            <source>message.current_password_is_incorrect</source>
+            <target>Aktualne hasło jest nieprawidłowe</target>
+          </trans-unit>
+          <trans-unit id="label.change_Password">
+            <source>label.change_Password</source>
+            <target>Zmień hasło</target>
+          </trans-unit>
+          <trans-unit id="action.change_Password">
+            <source>action.change_Password</source>
+            <target>Zmień hasło</target>
+          </trans-unit>
+      <trans-unit id="label.current_password">
+            <source>label.current_password</source>
+            <target>Proszę podać swoje obecne hasło</target>
+          </trans-unit>
+          <trans-unit id="label.new_password">
+            <source>label.new_password</source>
+            <target>Proszę podać nowe hasło</target>
+          </trans-unit>
+     <trans-unit id="action.change_password">
+        <source>action.change_password</source>
+        <target>Zmień hasło</target>
+      </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
         <target>Akcje</target>
@@ -135,7 +158,18 @@
         <source>action.new</source>
         <target>Nowy</target>
       </trans-unit>
-
+      <trans-unit id="title.comment_create">
+        <source>title.comment_create</source>
+        <target>Utwórz komentarz</target>
+      </trans-unit>
+      <trans-unit id="title.comment_delete">
+        <source>title.comment_delete</source>
+        <target>Usuń komentarz</target>
+      </trans-unit>
+      <trans-unit id="title.comment_list">
+        <source>title.comment_list</source>
+        <target>Lista komentarzy</target>
+      </trans-unit>
       <trans-unit id="action.sign_in">
               <source>action.sign_in</source>
               <target>Zaloguj się</target>

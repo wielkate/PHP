@@ -9,9 +9,12 @@
         <div class="col-md-10 mb-2 mb-md-0">
             <h1>{{ 'title.song_list'|trans }}</h1>
         </div>
-        <div class="col-md-2 text-end">
-            <a href="{{ path('song_create') }}" class="btn btn-primary">{{ 'action.new'|trans }}</a>
-        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-md-2 text-end">
+                <a href="{{ path('song_create') }}" class="btn btn-primary">{{ 'action.new'|trans }}</a>
+            </div>
+        {% endif %}
+{#        {% endif %}#}
     </div>
 
 
@@ -30,7 +33,6 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'song.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.duration'|trans, 'song.duration') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.comment'|trans, 'song.comment') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -49,17 +51,22 @@
                             </a>
                         {% endif %}
                     </td>
-                    <td>{{ song.comment }}</td>
+{#                    <td>{{ song.comment }}</td>#}
                     <td>
+                        {% if is_granted('VIEW', song) %}
                         <a href="{{ url('song_show', {id: song.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}
-                        </a>
-                        <a href="{{ url('song_edit', {id: song.id}) }}" title="{{ 'action.edit'|trans }}">
-                            {{ 'action.edit'|trans }}
-                        </a>
+                        </a>{% endif %}
+                        {% if is_granted('EDIT', song) %}
+                            <a href="{{ url('song_edit', {id: song.id}) }}" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('DELETE', song) %}
                         <a href="{{ url('song_delete', {id: song.id}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

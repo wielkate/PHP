@@ -29,10 +29,10 @@
                     <th>{{ 'label.duration' |trans }}</th>
                     <td>{{ song.duration ? song.duration|date("H:i:s")}}</td>
                 </tr>
-                <tr>
-                    <th>{{ 'label.comment' |trans }}</th>
-                    <td>{{ song.comment }}</td>
-                </tr>
+{#                <tr>#}
+{#                    <th>{{ 'label.comment' |trans }}</th>#}
+{#                    <td>{{ song.comment }}</td>#}
+{#                </tr>#}
                 {% if song.category is defined and song.category|length %}
                 <tr>
                     <th>{{ 'label.category' |trans}}
@@ -54,16 +54,46 @@
                         {% endfor %}</td>
                     </tr>
                 {% endif %}
+                <tr>
+                    <td>
+                        <table class="table" style="margin-left: 50%;">
+                            <th>{{ 'title.comment_list'|trans }}</th>
+                            {% for comment in song.comments %}
+                                <tr>
+                                    <td>
+                                        {{ comment.text }}
+                                    </td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <td>
+                                            <a href="{{ url('comment_delete', {id: comment.id}) }}" title="{{ 'action.delete'|trans }}">
+                                                {{ 'action.delete'|trans }}</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('comment_new', {'id': song.id}) }}" title="{{ 'action.new'|trans }}">
+                                        {{ 'action.new'|trans }}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </tbody>
         </table>
-
+    {% if is_granted('EDIT', song) %}
         <a href="{{ path('song_edit', {'id': song.id}) }}" title="{{ 'action.edit'|trans }}">
             {{ 'action.edit'|trans }}
         </a>
-
+        {%  endif %}
+    {% if is_granted('DELETE', song) %}
         <a href="{{ url('song_delete', {id: song.id}) }}" title="{{ 'action.delete'|trans }}">
             {{ 'action.delete'|trans }}</a>
+    {% endif %}
     {% else %}
+
         <p>
             {{ 'message.empty_list' |trans }}
         </p>

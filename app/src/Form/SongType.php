@@ -49,15 +49,15 @@ class SongType extends AbstractType
                 'required' => true,
             ]
         );
-        $builder->add(
-            'comment',
-            TextType::class,
-            [
-                'label' => 'label.comment',
-                'required' => true,
-                'attr' => ['max_length' => 255],
-            ]
-        );
+        //        $builder->add(
+        //            'comment',
+        //            TextType::class,
+        //            [
+        //                'label' => 'label.comment',
+        //                'required' => true,
+        //                'attr' => ['max_length' => 255],
+        //            ]
+        //        );
         $builder->add(
             'category',
             EntityType::class,
